@@ -15,9 +15,42 @@ public class GestionProductos extends javax.swing.JFrame {
 
     public static ArrayList<Producto> listaProductos = new ArrayList<>();
     public static ArrayList<String> listaCategoria = new ArrayList<>();
+    
     /**
      * Creates new form InterfazProductos
      */
+    
+    public void cargarCategorias(){
+        listaCategoria.add("Comestible");
+        listaCategoria.add("Farmacia");
+        listaCategoria.add("Electronica");
+        listaCategoria.add("Ropa");
+        listaCategoria.add("Limpieza");
+        listaCategoria.add("Perfumeria");
+        listaCategoria.add("Mascotas");
+        listaCategoria.add("Panderia");
+    }
+    
+    public void preCarga(){
+        Producto produ1 = new Producto("Arroz","Comestible",1000);
+        listaProductos.add(produ1);
+        Producto produ2 = new Producto("Tafirol","Farmacia",1500);
+        listaProductos.add(produ2);
+        Producto produ3 = new Producto("Auriculares","Electronica",25000);
+        listaProductos.add(produ3);
+        Producto produ4 = new Producto("Medias","Ropa",3000);
+        listaProductos.add(produ4);
+        Producto produ5 = new Producto("Lavandina","Limpieza",1200);
+        listaProductos.add(produ5);
+        Producto produ6 = new Producto("Paco","Perfumeria",10000);
+        listaProductos.add(produ6);
+        Producto produ7 = new Producto("Alimento gato","Mascotas",6500);
+        listaProductos.add(produ7);
+        Producto produ8 = new Producto("Pan de pancho","Panaderia",1300);
+        listaProductos.add(produ8);
+              
+    }
+    
     public GestionProductos() {
         initComponents();
     }
