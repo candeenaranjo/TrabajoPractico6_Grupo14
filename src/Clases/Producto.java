@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Leandro Naranjo
+ * @author Candela Naranjo
  */
 public class Producto {
     private String nombre;

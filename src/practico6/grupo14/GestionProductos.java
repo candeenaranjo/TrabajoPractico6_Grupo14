@@ -4,12 +4,17 @@
  */
 package practico6.grupo14;
 
+import Clases.Producto;
+import java.util.ArrayList;
+
 /**
  *
- * @author Leandro Naranjo
+ * @author Candela Naranjo
  */
 public class GestionProductos extends javax.swing.JFrame {
 
+    public static ArrayList<Producto> listaProductos = new ArrayList<>();
+    public static ArrayList<String> listaCategoria = new ArrayList<>();
     /**
      * Creates new form InterfazProductos
      */
@@ -17,6 +22,7 @@ public class GestionProductos extends javax.swing.JFrame {
         initComponents();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
