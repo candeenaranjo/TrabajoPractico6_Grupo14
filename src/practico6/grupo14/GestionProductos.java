@@ -6,6 +6,8 @@ package practico6.grupo14;
 
 import Clases.Producto;
 import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -50,9 +52,23 @@ public class GestionProductos extends javax.swing.JFrame {
         listaProductos.add(produ8);
               
     }
-    
+    public void cargarCombo(){
+         DefaultComboBoxModel<String> categoria = new DefaultComboBoxModel<>();
+         categoria.addElement("Seleccionar una categoria");
+        if (listaCategoria.isEmpty()) {
+            categoria.addElement("No hay categorias cargadas");
+        } else {
+            for (String c : listaCategoria) {
+                categoria.addElement(c);
+            }
+        }
+        jcBoxCategoria.setModel(categoria);
+    }
     public GestionProductos() {
         initComponents();
+        cargarCategorias();
+        preCarga();
+        cargarCombo();
     }
 
     
@@ -96,6 +112,11 @@ public class GestionProductos extends javax.swing.JFrame {
 
         btnAgregar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8-carrito-de-compras-48.png"))); // NOI18N
         btnAgregar.setText("Agregar");
+        btnAgregar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgregarMouseClicked(evt);
+            }
+        });
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregarActionPerformed(evt);
@@ -225,6 +246,31 @@ public class GestionProductos extends javax.swing.JFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void btnAgregarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgregarMouseClicked
+        // TODO add your handling code here:
+        try{
+        String cat= jcBoxCategoria.getSelectedItem().toString();
+        if (cat.equals("Seleccionar una categoria") || cat.equals("No hay categorias cargadas")) {
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una categoria valida", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+         if (txtNombre.getText().trim().isEmpty()|| txtPrecio.getText().trim().isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Todos los campos deben estar completos", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        String nom= txtNombre.getText();
+        Double pre= Double.parseDouble(txtPrecio.getText());
+        Producto produ=new Producto(nom,cat,pre);
+        listaProductos.add(produ);
+        }catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Tiene que colocar Numeros en vez de letras en el campo", "Error de tipeo", JOptionPane.ERROR_MESSAGE);
+        } catch (NullPointerException e) {
+            JOptionPane.showMessageDialog(this, "No puede haber un casillero vacio", "Error de tipeo", JOptionPane.ERROR_MESSAGE);
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Fallo al ingresar datos", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_btnAgregarMouseClicked
 
     /**
      * @param args the command line arguments
