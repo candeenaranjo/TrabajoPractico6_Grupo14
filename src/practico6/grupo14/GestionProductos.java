@@ -6,8 +6,13 @@ package practico6.grupo14;
 
 import Clases.Producto;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+
+import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -17,7 +22,14 @@ public class GestionProductos extends javax.swing.JFrame {
 
     public static ArrayList<Producto> listaProductos = new ArrayList<>();
     public static ArrayList<String> listaCategoria = new ArrayList<>();
-    
+
+    public DefaultTableModel modelo = new DefaultTableModel() {
+
+        public boolean isCellEditable(int fila, int column) {
+            return false;
+        }
+    };
+
     /**
      * Creates new form InterfazProductos
      */
@@ -50,6 +62,8 @@ public class GestionProductos extends javax.swing.JFrame {
         listaProductos.add(produ7);
         Producto produ8 = new Producto("Pan de pancho","Panaderia",1300);
         listaProductos.add(produ8);
+       
+        
               
     }
     public void cargarCombo(){
@@ -66,9 +80,13 @@ public class GestionProductos extends javax.swing.JFrame {
     }
     public GestionProductos() {
         initComponents();
+
         cargarCategorias();
         preCarga();
         cargarCombo();
+        armarCabecera();
+        cargarDatos();
+
     }
 
     
@@ -263,6 +281,8 @@ public class GestionProductos extends javax.swing.JFrame {
         Double pre= Double.parseDouble(txtPrecio.getText());
         Producto produ=new Producto(nom,cat,pre);
         listaProductos.add(produ);
+        cargarDatos();
+        JOptionPane.showMessageDialog(this, "Prodcuto cargado correctamente.");
         }catch (NumberFormatException e) {
             JOptionPane.showMessageDialog(this, "Tiene que colocar Numeros en vez de letras en el campo", "Error de tipeo", JOptionPane.ERROR_MESSAGE);
         } catch (NullPointerException e) {
@@ -309,6 +329,7 @@ public class GestionProductos extends javax.swing.JFrame {
             }
         });
     }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
@@ -324,4 +345,19 @@ public class GestionProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtPrecio;
     // End of variables declaration//GEN-END:variables
+private void armarCabecera(){
+    modelo.addColumn("Nombre");
+    modelo.addColumn("Categoria");
+    modelo.addColumn("Precio");
+    jtProductos.setModel(modelo);
+}
+
+private void cargarDatos(){
+    modelo.setRowCount(0);
+    for (Producto producto : listaProductos) {
+         modelo.addRow(new Object[]{producto.getNombre(),producto.getCategoria(),producto.getPrecio()});
+        
+    }
+}
+
 }
